@@ -3,7 +3,7 @@ package mobi.jedi.example.sixtcarlist.repository.network
 import android.util.Log
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
-import mobi.jedi.example.sixtcarlist.BuildConfig
+import mobi.jedi.example.sixtcarlist.repository.BuildConfig
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
