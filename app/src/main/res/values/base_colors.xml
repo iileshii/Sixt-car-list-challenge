@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+    <color name="nero">#212121</color>
+    <color name="grey">#757575</color>
+    <color name="silver">#BDBDBD</color>
+
+    <color name="tenne">#BB5300</color>
+    <color name="princeton_orange">#F4811E</color>
+    <color name="koromiko">#FFB251</color>
+</resources>
