@@ -1,1 +1,6 @@
-<manifest package="mobi.jedi.example.sixtcarlist.repository"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="mobi.jedi.example.sixtcarlist.repository">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+</manifest>
