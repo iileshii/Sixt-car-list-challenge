@@ -2,12 +2,9 @@ package mobi.jedi.example.sixtcarlist.repository.network.response
 
 import kotlinx.serialization.Serializable
 
-import mobi.jedi.example.sixtcarlist.domain.Coordinate
-
 @Serializable
 internal data class CarResponse(
     val id: String,
-    val coordinate: Coordinate,
     val modelIdentifier: String,
     val modelName: String,
     val name: String,
