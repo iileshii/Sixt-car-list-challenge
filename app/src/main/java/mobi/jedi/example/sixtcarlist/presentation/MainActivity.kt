@@ -40,18 +40,18 @@ class MainActivity : AppCompatActivity() {
     private fun initViewPager(viewPager: ViewPager) {
         viewPager.adapter = PagerAdapter(
             supportFragmentManager,
-            arrayOf(CarListFragment.newInstance(), MapFragment.newInstance()),
+            arrayOf({ CarListFragment.newInstance() }, { MapFragment.newInstance() }),
             arrayOf(getString(R.string.list_tab_title), getString(R.string.map_tab_title))
         )
     }
 
     private class PagerAdapter(
         fragmentManager: FragmentManager,
-        val fragments: Array<Fragment>,
+        val fragments: Array<(() -> Fragment)>,
         val titles: Array<CharSequence>
     ) : FragmentStatePagerAdapter(fragmentManager) {
 
-        override fun getItem(position: Int): Fragment = fragments[position]
+        override fun getItem(position: Int): Fragment = fragments[position].invoke()
 
         override fun getPageTitle(position: Int): CharSequence? = titles[position]
 
