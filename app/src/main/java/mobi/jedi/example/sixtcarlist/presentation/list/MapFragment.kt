@@ -60,7 +60,7 @@ class MapFragment : SupportMapFragment() {
 
     private fun centerCamera(coordinate: Coordinate) {
         val cameraUpdate = CameraUpdateFactory.newLatLng(coordinate.toLatLng())
-        map.moveCamera(cameraUpdate)
+        map.animateCamera(cameraUpdate)
     }
 
     private fun showInfo(carId: String) {
