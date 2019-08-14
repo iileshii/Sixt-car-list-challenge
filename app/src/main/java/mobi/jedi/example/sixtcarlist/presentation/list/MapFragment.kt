@@ -4,9 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
 import mobi.jedi.example.sixtcarlist.domain.Car
+import mobi.jedi.example.sixtcarlist.domain.Coordinate
 
 
 class MapFragment : SupportMapFragment() {
@@ -20,6 +25,7 @@ class MapFragment : SupportMapFragment() {
     }
 
     private lateinit var map: GoogleMap
+    private val markers = mutableListOf<MarkerOptions>()
 
     private val viewModel by lazy {
         ViewModelProviders.of(requireActivity(), CarListViewModelFactory()).get(CarListViewModel::class.java)
@@ -39,6 +45,24 @@ class MapFragment : SupportMapFragment() {
     }
 
     private fun updateCarList(cars: List<Car>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        map.clear()
+        markers.clear()
+        val boundsBuilder = LatLngBounds.Builder()
+        cars.forEach {
+            val latLng = it.coordinate.toLatLng()
+
+            val marker =
+                MarkerOptions()
+                    .position(latLng)
+                    .title(it.name)
+
+            map.addMarker(marker)
+            markers.add(marker)
+            boundsBuilder.include(latLng)
+        }
+        val cameraUpdate = CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 0)
+        map.moveCamera(cameraUpdate)
     }
 }
+
+private fun Coordinate.toLatLng() = LatLng(lat, lon)
