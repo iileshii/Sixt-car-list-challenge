@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import mobi.jedi.example.sixtcarlist.domain.Car
 import mobi.jedi.example.sixtcarlist.domain.Coordinate
 import mobi.jedi.example.sixtcarlist.presentation.Injector
+import mobi.jedi.example.sixtcarlist.presentation.car.CarBottomSheetFragment
 
 class MapFragment : SupportMapFragment() {
 
@@ -56,6 +57,11 @@ class MapFragment : SupportMapFragment() {
     private fun setCarSelected(car: Car) {
         centerCamera(car.coordinate)
         showInfo(car.id)
+        showCarBottomSheet(car.id)
+    }
+
+    private fun showCarBottomSheet(id: String) {
+        CarBottomSheetFragment.show(requireFragmentManager(), id)
     }
 
     private fun centerCamera(coordinate: Coordinate) {
