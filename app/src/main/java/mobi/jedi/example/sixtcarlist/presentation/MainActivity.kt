@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
 import mobi.jedi.example.sixtcarlist.R
 import mobi.jedi.example.sixtcarlist.presentation.list.CarListFragment
-import mobi.jedi.example.sixtcarlist.presentation.map.MapFragment
+import mobi.jedi.example.sixtcarlist.presentation.list.MapFragment
 
 class MainActivity : AppCompatActivity() {
 
