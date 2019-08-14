@@ -9,10 +9,10 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import mobi.jedi.example.sixtcarlist.domain.Car
 import mobi.jedi.example.sixtcarlist.domain.Coordinate
-
 
 class MapFragment : SupportMapFragment() {
 
@@ -25,10 +25,15 @@ class MapFragment : SupportMapFragment() {
     }
 
     private lateinit var map: GoogleMap
-    private val markers = mutableListOf<MarkerOptions>()
+    private val markers = mutableMapOf<String, Marker>()
 
-    private val viewModel by lazy {
-        ViewModelProviders.of(requireActivity(), CarListViewModelFactory()).get(CarListViewModel::class.java)
+    private val viewModelFactory by lazy { CarListViewModelFactory() }
+
+    private val listViewModel by lazy {
+        ViewModelProviders.of(requireActivity(), viewModelFactory).get(CarListViewModel::class.java)
+    }
+    private val selectionViewModel by lazy {
+        ViewModelProviders.of(requireActivity(), viewModelFactory).get(SelectionViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +46,24 @@ class MapFragment : SupportMapFragment() {
 
         map = googleMap
 
-        viewModel.getCars().observe(viewLifecycleOwner, Observer(::updateCarList))
+        listViewModel.getCars().observe(viewLifecycleOwner, Observer(::updateCarList))
+        selectionViewModel.getSelectedCar().observe(viewLifecycleOwner, Observer(::setCarSelected))
+
+        map.setOnMarkerClickListener { marker -> onMarkerSelect(marker) }
+    }
+
+    private fun setCarSelected(car: Car) {
+        centerCamera(car.coordinate)
+        showInfo(car.id)
+    }
+
+    private fun centerCamera(coordinate: Coordinate) {
+        val cameraUpdate = CameraUpdateFactory.newLatLng(coordinate.toLatLng())
+        map.moveCamera(cameraUpdate)
+    }
+
+    private fun showInfo(carId: String) {
+        markers[carId]?.showInfoWindow()
     }
 
     private fun updateCarList(cars: List<Car>) {
@@ -51,17 +73,23 @@ class MapFragment : SupportMapFragment() {
         cars.forEach {
             val latLng = it.coordinate.toLatLng()
 
-            val marker =
+            val markerOptions =
                 MarkerOptions()
                     .position(latLng)
                     .title(it.name)
 
-            map.addMarker(marker)
-            markers.add(marker)
+            val marker = map.addMarker(markerOptions).apply { tag = it.id }
+            markers[it.id] = marker
+
             boundsBuilder.include(latLng)
         }
         val cameraUpdate = CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 0)
         map.moveCamera(cameraUpdate)
+    }
+
+    private fun onMarkerSelect(marker: Marker): Boolean {
+        selectionViewModel.selectCar(marker.tag as String)
+        return false
     }
 }
 

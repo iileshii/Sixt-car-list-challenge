@@ -9,12 +9,14 @@ object RepositoryFabric {
 
     private val carListRepository by lazy { CarListRepository(provideApi(), provideCarMapper()) }
 
+    private val carRepository by lazy { CarRepository(provideApi(), provideCarMapper()) }
+
     fun provideCarListRepository(): ICarListRepository {
         return carListRepository
     }
 
     fun provideCarRepository(): ICarRepository {
-        TODO()
+        return carRepository
     }
 
     private fun provideApi(): IApi {

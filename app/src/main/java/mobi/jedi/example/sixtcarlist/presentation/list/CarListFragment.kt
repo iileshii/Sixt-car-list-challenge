@@ -25,8 +25,13 @@ class CarListFragment : Fragment() {
         }
     }
 
-    private val viewModel by lazy {
-        ViewModelProviders.of(requireActivity(), CarListViewModelFactory()).get(CarListViewModel::class.java)
+    private val viewModelFactory by lazy { CarListViewModelFactory() }
+
+    private val listViewModel by lazy {
+        ViewModelProviders.of(requireActivity(), viewModelFactory).get(CarListViewModel::class.java)
+    }
+    private val selectionViewModel by lazy {
+        ViewModelProviders.of(requireActivity(), viewModelFactory).get(SelectionViewModel::class.java)
     }
 
     private val adapter = CarListAdapter(::onItemClick)
@@ -37,7 +42,7 @@ class CarListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getCars().observe(viewLifecycleOwner, Observer(::updateCarList))
+        listViewModel.getCars().observe(viewLifecycleOwner, Observer(::updateCarList))
 
         initRecycler(view.context)
     }
@@ -61,6 +66,6 @@ class CarListFragment : Fragment() {
     }
 
     private fun onItemClick(carId: String) {
-//        selectionViewModel.updateSelection(item.coordinate)
+        selectionViewModel.selectCar(carId)
     }
 }

@@ -6,13 +6,15 @@ import mobi.jedi.example.sixtcarlist.repository.RepositoryFabric
 
 class CarListViewModelFactory : ViewModelProvider.Factory {
 
-    private val repository = RepositoryFabric.provideCarListRepository()
+    private val listRepository = RepositoryFabric.provideCarListRepository()
+    private val carRepository = RepositoryFabric.provideCarRepository()
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CarListViewModel::class.java)) {
-            return CarListViewModel(repository) as T
+        return when {
+            modelClass.isAssignableFrom(CarListViewModel::class.java) -> CarListViewModel(listRepository) as T
+            modelClass.isAssignableFrom(SelectionViewModel::class.java) -> SelectionViewModel(carRepository) as T
+            else -> throw IllegalArgumentException("Unknown ViewModel class: $modelClass")
         }
-        throw IllegalArgumentException("Unknown ViewModel class: $modelClass")
     }
 }
