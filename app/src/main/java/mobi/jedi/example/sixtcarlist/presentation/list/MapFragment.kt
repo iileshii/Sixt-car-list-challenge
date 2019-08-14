@@ -89,7 +89,7 @@ class MapFragment : SupportMapFragment() {
 
     private fun onMarkerSelect(marker: Marker): Boolean {
         selectionViewModel.selectCar(marker.tag as String)
-        return false
+        return true
     }
 }
 
