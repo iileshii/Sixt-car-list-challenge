@@ -7,17 +7,21 @@ import mobi.jedi.example.sixtcarlist.repository.network.response.mapper.ICarMapp
 
 object RepositoryFabric {
 
-    private val carListRepository by lazy { CarListRepository(getApi(), getCarMapper()) }
+    private val carListRepository by lazy { CarListRepository(provideApi(), provideCarMapper()) }
 
-    fun getCarListRepository(): ICarListRepository {
+    fun provideCarListRepository(): ICarListRepository {
         return carListRepository
     }
 
-    private fun getApi(): IApi {
+    fun provideCarRepository(): ICarRepository {
+        TODO()
+    }
+
+    private fun provideApi(): IApi {
         return ApiProvider.api
     }
 
-    private fun getCarMapper(): ICarMapper {
+    private fun provideCarMapper(): ICarMapper {
         return CarMapper()
     }
 }
