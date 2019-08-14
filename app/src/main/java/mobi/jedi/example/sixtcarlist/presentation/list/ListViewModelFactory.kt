@@ -2,12 +2,13 @@ package mobi.jedi.example.sixtcarlist.presentation.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import mobi.jedi.example.sixtcarlist.repository.RepositoryFabric
+import mobi.jedi.example.sixtcarlist.repository.ICarListRepository
+import mobi.jedi.example.sixtcarlist.repository.ICarRepository
 
-class CarListViewModelFactory : ViewModelProvider.Factory {
-
-    private val listRepository = RepositoryFabric.provideCarListRepository()
-    private val carRepository = RepositoryFabric.provideCarRepository()
+class ListViewModelFactory(
+    private val listRepository: ICarListRepository,
+    private val carRepository: ICarRepository
+) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

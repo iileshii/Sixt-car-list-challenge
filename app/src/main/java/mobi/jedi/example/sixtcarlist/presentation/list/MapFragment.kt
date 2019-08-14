@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import mobi.jedi.example.sixtcarlist.domain.Car
 import mobi.jedi.example.sixtcarlist.domain.Coordinate
+import mobi.jedi.example.sixtcarlist.presentation.Injector
 
 class MapFragment : SupportMapFragment() {
 
@@ -27,7 +28,7 @@ class MapFragment : SupportMapFragment() {
     private lateinit var map: GoogleMap
     private val markers = mutableMapOf<String, Marker>()
 
-    private val viewModelFactory by lazy { CarListViewModelFactory() }
+    private val viewModelFactory by lazy { Injector.provideListViewModelFactory() }
 
     private val listViewModel by lazy {
         ViewModelProviders.of(requireActivity(), viewModelFactory).get(CarListViewModel::class.java)

@@ -10,5 +10,4 @@ class CarViewModel(private val carId: String, private val repository: ICarReposi
     fun getCar(): LiveData<Car> {
         return repository.loadCar(carId)
     }
-
 }

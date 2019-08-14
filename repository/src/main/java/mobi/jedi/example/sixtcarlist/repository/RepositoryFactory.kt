@@ -8,7 +8,7 @@ import mobi.jedi.example.sixtcarlist.repository.network.IApi
 import mobi.jedi.example.sixtcarlist.repository.network.response.mapper.CarMapper
 import mobi.jedi.example.sixtcarlist.repository.network.response.mapper.ICarMapper
 
-object RepositoryFabric {
+object RepositoryFactory {
 
     private val carListRepository by lazy {
         CarListRepository(

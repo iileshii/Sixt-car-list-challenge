@@ -7,7 +7,9 @@ import mobi.jedi.example.sixtcarlist.repository.ICarListRepository
 
 class CarListViewModel(private val repository: ICarListRepository) : ViewModel() {
 
+    private var liveData: LiveData<List<Car>>? = null
+
     fun getCars(): LiveData<List<Car>> {
-        return repository.loadList()
+        return liveData ?: repository.loadList().also { liveData = it }
     }
 }

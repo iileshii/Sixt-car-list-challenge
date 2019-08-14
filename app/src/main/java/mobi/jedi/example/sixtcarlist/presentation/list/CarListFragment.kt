@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_list.*
 import mobi.jedi.example.sixtcarlist.R
 import mobi.jedi.example.sixtcarlist.domain.Car
+import mobi.jedi.example.sixtcarlist.presentation.Injector
 
 class CarListFragment : Fragment() {
 
@@ -25,7 +26,7 @@ class CarListFragment : Fragment() {
         }
     }
 
-    private val viewModelFactory by lazy { CarListViewModelFactory() }
+    private val viewModelFactory by lazy { Injector.provideListViewModelFactory() }
 
     private val listViewModel by lazy {
         ViewModelProviders.of(requireActivity(), viewModelFactory).get(CarListViewModel::class.java)

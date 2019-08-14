@@ -8,15 +8,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
 import mobi.jedi.example.sixtcarlist.R
 import mobi.jedi.example.sixtcarlist.presentation.list.CarListFragment
 import mobi.jedi.example.sixtcarlist.presentation.list.MapFragment
+import mobi.jedi.example.sixtcarlist.presentation.list.SelectionViewModel
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
+        private const val MAP_FRAGMENT_POSITION = 1
 
         fun start(context: Context) {
             Intent(context, MainActivity::class.java)
@@ -30,11 +34,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private val viewModelFactory by lazy { Injector.provideListViewModelFactory() }
+
+    private val selectionViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(SelectionViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initViewPager(view_pager)
+        selectionViewModel.getSelectedCar().observe(this, Observer { onCarSelected() })
+    }
+
+    private fun onCarSelected() {
+        view_pager.currentItem = MAP_FRAGMENT_POSITION
     }
 
     private fun initViewPager(viewPager: ViewPager) {
