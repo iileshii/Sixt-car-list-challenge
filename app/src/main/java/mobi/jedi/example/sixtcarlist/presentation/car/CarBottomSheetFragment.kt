@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -29,7 +28,6 @@ class CarBottomSheetFragment : BottomSheetDialogFragment() {
             if (fragment?.arguments?.getString(KEY_CAR_ID) == carId) {
                 //leave same fragment
             } else {
-                (fragment as? DialogFragment)?.dismissAllowingStateLoss()
 
                 CarBottomSheetFragment()
                     .apply { arguments = Bundle(1).apply { putString(KEY_CAR_ID, carId) } }
@@ -43,7 +41,7 @@ class CarBottomSheetFragment : BottomSheetDialogFragment() {
     private val viewModelFactory by lazy { carId?.let { Injector.provideCarViewModelFactory(it) } }
 
     private val carViewModel by lazy {
-        ViewModelProviders.of(requireActivity(), viewModelFactory).get(CarViewModel::class.java)
+        ViewModelProviders.of(this, viewModelFactory).get(CarViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
