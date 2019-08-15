@@ -3,4 +3,11 @@
 
     <string name="list_tab_title">Car List</string>
     <string name="map_tab_title">Map</string>
+    <string name="content_description_car_image">Car Image</string>
+    <string name="cleanliness_label">Cleanliness</string>
+    <string name="fuel_level_label">Fuel Level</string>
+    <string name="transmission_label">Transmission</string>
+    <string name="transmission_unknown">N/A</string>
+    <string name="transmission_manual">Manual</string>
+    <string name="transmission_automatic">Automatic</string>
 </resources>

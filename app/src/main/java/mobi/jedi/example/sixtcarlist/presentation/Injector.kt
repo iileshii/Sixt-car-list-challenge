@@ -1,6 +1,7 @@
 package mobi.jedi.example.sixtcarlist.presentation
 
 import androidx.lifecycle.ViewModelProvider
+import mobi.jedi.example.sixtcarlist.presentation.car.CarViewModelFactory
 import mobi.jedi.example.sixtcarlist.presentation.list.ListViewModelFactory
 import mobi.jedi.example.sixtcarlist.repository.RepositoryFactory
 
@@ -18,6 +19,6 @@ object Injector {
     }
 
     fun provideCarViewModelFactory(carId: String): ViewModelProvider.Factory {
-        TODO()
+        return CarViewModelFactory(carId)
     }
 }
