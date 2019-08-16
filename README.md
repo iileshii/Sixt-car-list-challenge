@@ -1,21 +1,5 @@
 # Sixt-car-list-challenge
 
-# User story
-## Description
-As an Android engineer I want a small Android app that displays a group of cars on a map and a list, so I can see if you are the Android developer we are looking for.
-
-## Acceptance Criteria
-• Implement an app in Kotlin (preferably) or Java that retrieves and displays our cars both on a map and on a list.
-• The list of cars can be found at https://cdn.sixt.io/codingtask/cars
-o In case any car images are missing, use a fall-back image.
-• You may use any external frameworks and libraries you like, just add a short note explaining why you chose them.
-• Show us what you care about when it comes to architecture, structure, clean code, UI/UX, error- handling and automated testing.
-• Share your code with us via Github, Bitbucket, zip file. Etc.
-• Please also provide a working .apk of your solution
-
-## Designs
-Up to you ;)
-
 # SOLUTION DESCRIPTION
 
 The app contains 3 main layer:
